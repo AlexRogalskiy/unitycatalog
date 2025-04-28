@@ -3,7 +3,7 @@
 Integrate Unity Catalog AI with the [Anthropic SDK](https://docs.anthropic.com/en/api/client-sdks) to utilize functions defined in Unity Catalog
 as tools in Anthropic LLM calls. This guide covers installation, setup, caveats, environment variables, public APIs, and examples to help you get started.
 
----
+______________________________________________________________________
 
 ## Installation
 
@@ -55,7 +55,7 @@ client = UnitycatalogFunctionClient(api_client=api_client)
 
 Create an instance of the Unity Catalog Functions client
 
-``` python
+```python
 from unitycatalog.ai.core.databricks import DatabricksFunctionClient
 
 client = DatabricksFunctionClient()
@@ -65,7 +65,7 @@ client = DatabricksFunctionClient()
 
 Create a Python function within Unity Catalog
 
-``` python
+```python
 CATALOG = "your_catalog"
 SCHEMA = "your_schema"
 
@@ -91,7 +91,7 @@ client.create_python_function(
 
 ### Creating a toolkit instance from a UC function
 
-``` python
+```python
 from unitycatalog.ai.anthropic.toolkit import UCFunctionToolkit
 
 # Create an instance of the toolkit
@@ -100,7 +100,7 @@ toolkit = UCFunctionToolkit(function_names=[func_name], client=client)
 
 ### Use a tool within a call to Anthropic
 
-``` python
+```python
 import anthropic
 
 anthropic_client = anthropic.Anthropic(api_key="YOUR_ANTHROPIC_API_KEY")
@@ -126,11 +126,11 @@ In order to simplify the parsing and handling of a call to the UC function that 
 message handler utility that will detect, extract, perform the call to the UC function, parse the response, and craft the next message
 format for the continuation of the conversation with Claude.
 
->Note: The entire conversation history must be provided in the `conversation_history` argument to the `generate_tool_call_messages` API.
-Claude models require the initialization of the conversation (the original user input question) as well as all subsequent LLM-generated responses
-and multi-turn tool call results.
+> Note: The entire conversation history must be provided in the `conversation_history` argument to the `generate_tool_call_messages` API.
+> Claude models require the initialization of the conversation (the original user input question) as well as all subsequent LLM-generated responses
+> and multi-turn tool call results.
 
-``` python
+```python
 from unitycatalog.ai.anthropic.utils import generate_tool_call_messages
 
 # Call the UC function and construct the required formatted response
@@ -154,11 +154,11 @@ print(tool_response)
 ## Additional Notes
 
 - **control**: If you need to intercept and filter or adjust content between a request for a tool call and the next turn's interaction, the `generate_tool_call_messages` utility may not meet your needs. This utility is entirely optional to use. You can always manually construct the conversation
-history for multi-turn conversations with Claude.
+  history for multi-turn conversations with Claude.
 
 For access to the lower-level API for more control over tool calling execution with Anthropic, you can use the `extract_tool_call_data` utility:
 
-``` python
+```python
 from unitycatalog.ai.anthropic.utils import extract_tool_call_data
 
 # This returns a List[ToolCallData]

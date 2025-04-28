@@ -29,7 +29,7 @@ The sbt generation process for this SDK will:
 3. Exclude the creation of package building files (`pyproject.toml` and `setup.py`) in favor of the distribution versions of these files.
 4. Remove additional irrelevant files (for details, see the definitions within the [.openapi-generator-ignore](build/.openapi-generator-ignore) file).
 5. Copy over the release versions of `pyproject.toml`, `setup.py`, and the release package `README.md` file to the correct locations within
-the generated code directories.
+   the generated code directories.
 6. Place the generated source code into a hatch-compatible `src` directory for packaging of a shared namespace package.
 
 For details on what operations are performed in the build process, see the [processing script](../../project/PythonPostBuild.scala) to learn more.
@@ -103,15 +103,15 @@ Client tests use the `pytest` library. To run them:
 
 1. Install dependencies
 
-    ```sh
-    pip install requests pytest
-    ```
+   ```sh
+   pip install requests pytest
+   ```
 
 2. Generate the client library, install it, and run the tests
 
-    ```sh
-    ./run-tests.sh
-    ```
+   ```sh
+   ./run-tests.sh
+   ```
 
 ## Building docs for release
 

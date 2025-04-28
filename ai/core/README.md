@@ -34,21 +34,21 @@ The Unity Catalog (UC) function client is a core component of the Unity Catalog 
 When using the `UnitycatalogFunctionClient` for UC, be mindful of the following considerations:
 
 - **Asynchronous API Usage**:
-    - The `UnitycatalogFunctionClient` is built on top of the asynchronous [unitycatalog-client SDK](https://pypi.org/project/unitycatalog/), which utilizes aiohttp for REST communication with the UC server.
-    - The function client for Unity Catalog offers **both asynchronous and synchronous methods**. The synchronous methods are wrappers around the asynchronous counterparts, ensuring compatibility with environments that may not support asynchronous operations.
-    - **Important**: Avoid creating additional event loops in environments that already have a running loop (e.g., Jupyter Notebooks) to prevent conflicts and potential runtime errors.
+  - The `UnitycatalogFunctionClient` is built on top of the asynchronous [unitycatalog-client SDK](https://pypi.org/project/unitycatalog/), which utilizes aiohttp for REST communication with the UC server.
+  - The function client for Unity Catalog offers **both asynchronous and synchronous methods**. The synchronous methods are wrappers around the asynchronous counterparts, ensuring compatibility with environments that may not support asynchronous operations.
+  - **Important**: Avoid creating additional event loops in environments that already have a running loop (e.g., Jupyter Notebooks) to prevent conflicts and potential runtime errors.
 - **Security Considerations**:
-    - **WARNING** Function execution occurs **locally** within the environment where your application is running.
-    - **Caution**: Executing GenAI-generated Python code can pose security risks, especially if the code includes operations like file system access or network requests.
-    - **Recommendation**: Run your application in an isolated and secure environment with restricted permissions to mitigate potential security threats.
+  - **WARNING** Function execution occurs **locally** within the environment where your application is running.
+  - **Caution**: Executing GenAI-generated Python code can pose security risks, especially if the code includes operations like file system access or network requests.
+  - **Recommendation**: Run your application in an isolated and secure environment with restricted permissions to mitigate potential security threats.
 - **External Dependencies**:
-    - Ensure that any external libraries required by your UC functions are pre-installed in the execution environment.
-    - Best Practice: Import external dependencies within the function body to guarantee their availability during execution.
+  - Ensure that any external libraries required by your UC functions are pre-installed in the execution environment.
+  - Best Practice: Import external dependencies within the function body to guarantee their availability during execution.
 - **Function Overwriting**:
-    - The `create_function`, `create_function_async`, `create_wrapped_function` and `create_wrapped_function_async` methods allow overwriting existing functions by setting the replace parameter to True.
-    - **Warning**: Overwriting functions can disrupt workflows that depend on existing function definitions. Use this feature judiciously and ensure that overwriting is intentional.
+  - The `create_function`, `create_function_async`, `create_wrapped_function` and `create_wrapped_function_async` methods allow overwriting existing functions by setting the replace parameter to True.
+  - **Warning**: Overwriting functions can disrupt workflows that depend on existing function definitions. Use this feature judiciously and ensure that overwriting is intentional.
 - **Type Validation and Compatibility**:
-    - The client performs strict type validation based on the defined schemas. Ensure that your function parameters and return types adhere to the expected types to prevent execution errors.
+  - The client performs strict type validation based on the defined schemas. Ensure that your function parameters and return types adhere to the expected types to prevent execution errors.
 
 #### Prerequisites
 
@@ -58,9 +58,9 @@ Before using the UC functions client, ensure that your environment meets the fol
 
 - **Dependencies**: Install the necessary packages using pip:
 
-    ```sh
-    pip install unitycatalog-client unitycatalog-ai
-    ```
+  ```sh
+  pip install unitycatalog-client unitycatalog-ai
+  ```
 
 - **Unity Catalog Server**: Ensure that you have access to a running instance of the open-source Unity Catalog server. Follow the [Unity Catalog Installation Guide](https://docs.unitycatalog.io/quickstart/) to set up your server if you haven't already.
 
@@ -247,7 +247,7 @@ The following imports are not permitted:
 - `shutil`
 
 If you want to customize the allowed package imports, you can override the entire list by submitting a list of standard package names to the
-environment variable `EXECUTOR_DISALLOWED_MODULES` (must be a list[str]).
+environment variable `EXECUTOR_DISALLOWED_MODULES` (must be a list\[str\]).
 
 In addition, callables executed within the sandbox environment do not have access to the built-in file `open` command.
 
@@ -306,12 +306,12 @@ To use Databricks-managed Unity Catalog with this package, follow the [instructi
 
 #### Prerequisites
 
-- **[Highly recommended]** Use python>=3.10 for accessing all functionalities including function creation and function execution.
+- **\[Highly recommended\]** Use python>=3.10 for accessing all functionalities including function creation and function execution.
 - For creating UC functions with a SQL body definition, **only [serverless compute](https://docs.databricks.com/en/compute/use-compute.html#use-serverless-compute) is supported**.
   Install databricks-connect package with `pip install databricks-connect>=15.1.0` to access serverless compute. **python>=3.10** is a requirement to install this version of the package.
 - For executing the UC functions within Databricks, use Databricks Connect with serverless:
-    NOTE: **only `serverless` [SQL warehouse type](https://docs.databricks.com/en/admin/sql/warehouse-types.html#sql-warehouse-types) is supported** because of performance concerns.
-    - Databricks connect with serverless: Install databricks-connect package with `pip install databricks-connect>=15.1.0`. No config needs to be passed when initializing the client.
+  NOTE: **only `serverless` [SQL warehouse type](https://docs.databricks.com/en/admin/sql/warehouse-types.html#sql-warehouse-types) is supported** because of performance concerns.
+  - Databricks connect with serverless: Install databricks-connect package with `pip install databricks-connect>=15.1.0`. No config needs to be passed when initializing the client.
 
 #### Client initialization
 
@@ -456,7 +456,7 @@ The returned value from the `get_function_source` API will be the same as the or
 - `tuple` types will be cast to `list` due to the inability to express a Python `tuple` within Unity Catalog
 - The docstring of the original function will be stripped out. Unity Catalog persists the docstring information in the logged function and it is available in the return of the `get_function` API call if needed.
 - Collection types for open source Unity Catalog will only capture the outer type (i.e., `list` or `dict`) as inner collection type metadata is not preserved
-within the `FunctionInfo` object. In Databricks, full typing is supported for collecitons.
+  within the `FunctionInfo` object. In Databricks, full typing is supported for collecitons.
 
 The result of calling the `get_function_source` API on the `sample_python_func` registered function will be (when printed):
 
@@ -624,7 +624,7 @@ To manage the function execution behavior using Databricks client under differen
 |---------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
 | `UCAI_DATABRICKS_SESSION_RETRY_MAX_ATTEMPTS`                        | Maximum number of attempts to retry refreshing the session client in case of token expiry.                                                               | 5           |
 | `UCAI_DATABRICKS_SERVERLESS_EXECUTION_RESULT_ROW_LIMIT`             | Maximum number of rows when executing functions using serverless compute with `databricks-connect`.                                                                              | 100           |
-                         | 100           |
+| 100           |
 
 #### Reminders
 

@@ -8,10 +8,10 @@ Apache Iceberg, and Delta Lake.
 ## Pre-Requisites
 
 1. Source table(s) (Hudi/Iceberg) already written to external storage locations like S3/GCS/ADLS or local. In this
-    guide, we will use a S3 example.
-1. Follow the XTable installation guide [here](https://xtable.apache.org/docs/setup)
-1. Clone the Unity Catalog repository from [here](https://github.com/unitycatalog/unitycatalog) and build the project
-    by following the steps outlined [here](https://github.com/unitycatalog/unitycatalog?tab=readme-ov-file#prerequisites)
+   guide, we will use a S3 example.
+2. Follow the XTable installation guide [here](https://xtable.apache.org/docs/setup)
+3. Clone the Unity Catalog repository from [here](https://github.com/unitycatalog/unitycatalog) and build the project
+   by following the steps outlined [here](https://github.com/unitycatalog/unitycatalog?tab=readme-ov-file#prerequisites)
 
 To sync a source Hudi/Iceberg table using XTable use the following:
 
@@ -32,7 +32,7 @@ command. This will generate the Delta Lake metadata.
 java -jar xtable-utilities/target/incubator-xtable-utilities-0.1.0-SNAPSHOT-bundled.jar --datasetConfig my_config.yaml
 ```
 
-> **Note:** At this point, if you check your bucket path, you will be able to see _delta_log directory with the JSON log.
+> **Note:** At this point, if you check your bucket path, you will be able to see \_delta_log directory with the JSON log.
 
 ## Configure Server Property for using S3
 

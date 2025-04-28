@@ -2,8 +2,8 @@
 
 Integrate Unity Catalog AI with the [CrewAI](https://www.crewai.com/) SDK to utilize functions defined in Unity Catalog (UC) as tools within CrewAI LLM calls. This guide covers installation, setup, caveats, environment variables, public APIs, and examples to help you get started.
 
----
-  
+______________________________________________________________________
+
 ## Installation
 
 Install the Unity Catalog AI CrewAI integration from PyPI:

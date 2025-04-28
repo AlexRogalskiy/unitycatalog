@@ -5,9 +5,9 @@ Welcome to the official Python Client SDK for Unity Catalog!
 Unity Catalog is the industry's only universal catalog for data and AI.
 
 - **Multimodal interface supports any format, engine, and asset**
-    - Multi-format support: It is extensible and supports Delta Lake, Apache Iceberg and Apache Hudi via UniForm, Apache Parquet, JSON, CSV, and many others.
-    - Multi-engine support: With its open APIs, data cataloged in Unity can be read by many leading compute engines.
-    - Multimodal: It supports all your data and AI assets, including tables, files, functions, AI models.
+  - Multi-format support: It is extensible and supports Delta Lake, Apache Iceberg and Apache Hudi via UniForm, Apache Parquet, JSON, CSV, and many others.
+  - Multi-engine support: With its open APIs, data cataloged in Unity can be read by many leading compute engines.
+  - Multimodal: It supports all your data and AI assets, including tables, files, functions, AI models.
 - **Open source API and implementation** - OpenAPI spec and OSS implementation (Apache 2.0 license). It is also compatible with Apache Hive's metastore API and Apache Iceberg's REST catalog API. Unity Catalog is currently a sandbox project with LF AI and Data Foundation (part of the Linux Foundation).
 - **Unified governance** for data and AI - Govern and secure tabular data, unstructured assets, and AI assets with a single interface.
 
@@ -41,7 +41,7 @@ of the repository to generate the Python Client SDK source:
 build/sbt pythonClient/generate
 ```
 
-The source code will be generated at `unitycatalog/clients/python/target`. 
+The source code will be generated at `unitycatalog/clients/python/target`.
 
 You can then install the package in editable mode from the repository root:
 
@@ -87,8 +87,8 @@ catalogs_api = CatalogsApi(api_client=client)
 my_catalogs = await catalogs_api.list_catalogs()
 ```
 
->Note: APIs that support pagination (such as `list_catalogs`) should have continutation token logic for assembling the paginated
-return values into a single collection.
+> Note: APIs that support pagination (such as `list_catalogs`) should have continutation token logic for assembling the paginated
+> return values into a single collection.
 
 A simple example of consuming a paginated response is:
 

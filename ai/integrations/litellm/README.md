@@ -106,8 +106,8 @@ Output
 
 With our interface to our UC function defined as a JSON tool collection, we can directly use it within a LiteLLM Completion call.
 
-> [!NOTE]
-> LiteLLM doesn't have tool objects and instead looks to leverage a standard JSON format; these are passed directly to 
+> \[!NOTE\]
+> LiteLLM doesn't have tool objects and instead looks to leverage a standard JSON format; these are passed directly to
 > supported LLMs. This integration standardizes on the OpenAI tool format, which is supported by most LiteLLM models.
 > For more, please visit the [LiteLLM](https://docs.litellm.ai/docs/completion/function_call) docs on which models support tool calling.
 

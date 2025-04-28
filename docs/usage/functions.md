@@ -20,7 +20,7 @@ Let's look at how this works.
 We'll use a local Unity Catalog server to get started. The default local UC server comes with some sample data.
 
 > If this is your first time spinning up a UC server, you might want to check out the [Quickstart](../quickstart.md)
-    first.
+> first.
 
 Spin up a local UC server by running the following code in a terminal from the root directory of your local
 `unitycatalog` repository:
@@ -220,7 +220,7 @@ This should output something like:
 ```
 
 You can also store more complex functions. For example, you can import Python modules and use them in your function.
-Note if you have multiple lines in complex functions, you must insert "\n" to separate lines in the function
+Note if you have multiple lines in complex functions, you must insert "\\n" to separate lines in the function
 definition. Otherwise, the function will return "invalid syntax" error when it is called.
 
 Let's take the example below of a function that uses the Numpy library to simulate a random roll of dice:
@@ -253,7 +253,7 @@ This will simulate rolling a single die with 6 sides.
 Required Parameters:
 
 - `--full_name`: The full name of the table. The full name is the concatenation of the catalog name, schema name, and
-    table/volume name separated by a dot. For example, catalog_name.schema_name.table_name.
+  table/volume name separated by a dot. For example, catalog_name.schema_name.table_name.
 - `--input_params`: The input parameters of the function,
 - `--data_type`: The data type of the function.
 

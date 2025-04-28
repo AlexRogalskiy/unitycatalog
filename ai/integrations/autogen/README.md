@@ -2,7 +2,7 @@
 
 You can use the Unity Catalog AI package with the autogen SDK to utilize functions that are defined in Unity Catalog to be used as tools within autogen LLM calls.
 
-> [!NOTE]
+> \[!NOTE\]
 > Ensure that the base Autogen package is installed with version `autogen-agentchat>=0.4.0`, as there has been a signficant series of API improvements made to autogen that are not backward compatible. This integration does not support the legacy APIs.
 
 ## Installation
@@ -22,9 +22,9 @@ pip install unitycatalog-autogen[databricks]
 ```
 
 > **Note**: The official Microsoft AutoGen package has been renamed from `pyautogen` to `autogen-agentchat`.
-There are additional forked version of the AutoGen package that are not contributed by Microsoft and will not work with this integration.
-For further information, please see the [official clarification statement](https://github.com/microsoft/autogen/discussions/4217). The officially
-maintained repository can be viewed [here](https://github.com/microsoft/autogen).
+> There are additional forked version of the AutoGen package that are not contributed by Microsoft and will not work with this integration.
+> For further information, please see the [official clarification statement](https://github.com/microsoft/autogen/discussions/4217). The officially
+> maintained repository can be viewed [here](https://github.com/microsoft/autogen).
 
 ## Getting started
 
@@ -206,7 +206,7 @@ weather_agent = AssistantAgent(
 )
 ```
 
-Now that we have the AssistantAgent defined with our Unity Catalog tools configured, we can directly ask the Agent questions. 
+Now that we have the AssistantAgent defined with our Unity Catalog tools configured, we can directly ask the Agent questions.
 
 ### Calling the function
 

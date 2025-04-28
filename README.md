@@ -57,8 +57,7 @@ Let's take Unity Catalog for spin. In this guide, we are going to do the followi
   An example project is provided to demonstrate how to use the UC SDK for various assets
   as well as provide a convenient way to explore the content of any UC server implementation.
 
-> If you prefer to run Unity Catalog in Docker use `docker
-> compose up`. See the [Docker Compose docs](./docs/docker_compose.md) for more details.
+> If you prefer to run Unity Catalog in Docker use `docker compose up`. See the [Docker Compose docs](./docs/docker_compose.md) for more details.
 
 ### Prerequisites
 
@@ -67,7 +66,6 @@ You have to ensure that your local environment has the following:
 - Clone this repository.
 - Ensure the `JAVA_HOME` environment variable your terminal is configured to point to JDK17.
 - Compile the project using `build/sbt package`
-
 
 ### Run the UC Server
 
@@ -154,16 +152,17 @@ To quit DuckDB, press `Ctrl`+`D` (if your platform supports it), press `Ctrl`+`C
 To use the Unity Catalog UI, start a new terminal and ensure you have already started the UC server (e.g., `./bin/start-uc-server`)
 
 **Prerequisites**
-* Node: https://nodejs.org/en/download/package-manager
-* Yarn: https://classic.yarnpkg.com/lang/en/docs/install
+
+- Node: https://nodejs.org/en/download/package-manager
+- Yarn: https://classic.yarnpkg.com/lang/en/docs/install
 
 **How to start the UI through yarn**
+
 ```
 cd /ui
 yarn install
 yarn start
 ```
-
 
 ## CLI tutorial
 

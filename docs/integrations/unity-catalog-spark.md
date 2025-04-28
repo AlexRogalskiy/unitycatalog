@@ -17,8 +17,8 @@ data stored in Unity Catalog through a controlled mechanism.
 - Provides easy access to different file formats without end users needing to know how the data is stored.
 
 !!! warning "Prerequisites"
-    For Apache Spark and Delta Lake to work together with Unity Catalog, you will need atleast Apache Spark 3.5.3 and
-    Delta Lake 3.2.1.
+For Apache Spark and Delta Lake to work together with Unity Catalog, you will need atleast Apache Spark 3.5.3 and
+Delta Lake 3.2.1.
 
 ## Download and Configure Unity Catalog for Apache Spark
 
@@ -34,43 +34,49 @@ curl -O https://archive.apache.org/dist/spark/spark-3.5.3/spark-3.5.3-bin-hadoop
 tar xzf spark-3.5.3-bin-hadoop3.tgz
 ```
 
-### [Optional] Configure server properties for cloud storage
+### \[Optional\] Configure server properties for cloud storage
 
 To have Unity Catalog work with cloud object storage as the storage location for tables, configure the
 `etc/conf/server.properties` to add configuration:
 
 === "AWS S3"
 
-    ```sh
-    ## S3 Storage Config (Multiple configs can be added by incrementing the index)
-    s3.bucketPath.0=<S3_BUCKET>
-    s3.region.0=<S3_REGION>
-    s3.awsRoleArn.0=<S3_ROLE>
-    # Optional (If blank, it will use DefaultCredentialsProviderChain)
-    s3.accessKey.0=<SECRET>
-    s3.secretKey.0=<SECRET>
-    ```
+````
+```sh
+## S3 Storage Config (Multiple configs can be added by incrementing the index)
+s3.bucketPath.0=<S3_BUCKET>
+s3.region.0=<S3_REGION>
+s3.awsRoleArn.0=<S3_ROLE>
+# Optional (If blank, it will use DefaultCredentialsProviderChain)
+s3.accessKey.0=<SECRET>
+s3.secretKey.0=<SECRET>
+```
+````
 
 === "Azure ADLSgen2"
 
-    ```sh
-    ## ADLS Storage Config (Multiple configs can be added by incrementing the index)
-    adls.storageAccountName.0=<ADLS_STORAGEACCOUNTNAME>
-    adls.tenantId.0=<ADLS_TENANTID>
-    adls.clientId.0=<ADLS_CLIENTID>
-    adls.clientSecret.0=<SECRET>
-    ```
+````
+```sh
+## ADLS Storage Config (Multiple configs can be added by incrementing the index)
+adls.storageAccountName.0=<ADLS_STORAGEACCOUNTNAME>
+adls.tenantId.0=<ADLS_TENANTID>
+adls.clientId.0=<ADLS_CLIENTID>
+adls.clientSecret.0=<SECRET>
+```
+````
 
 === "Google Cloud Storage"
 
-    ```sh
-    ## GCS Storage Config (Multiple configs can be added by incrementing the index)
-    gcs.bucketPath.0=<GCS_BUCKET>
-    # Optional (If blank, it will use Default Application chain to find credentials)
-    gcs.jsonKeyFilePath.0=/path/to/<SECRET>/gcp-key-uc-testing.json
-    ```
+````
+```sh
+## GCS Storage Config (Multiple configs can be added by incrementing the index)
+gcs.bucketPath.0=<GCS_BUCKET>
+# Optional (If blank, it will use Default Application chain to find credentials)
+gcs.jsonKeyFilePath.0=/path/to/<SECRET>/gcp-key-uc-testing.json
+```
+````
 
-### [Optional] Restart Unity Catalog Server
+### \[Optional\] Restart Unity Catalog Server
 
 If the UC Server is already started, please restart it to account for the cloud storage server properties.
 
@@ -88,39 +94,45 @@ You can run the code below to work with data stored in the `unity` catalog that 
 
 !!! warning "Catalog name in configs"
 
-    If you want to work with data stored in another catalog, make sure to change `unity` in the Spark configs to `<your_catalog_name>`, e.g. `spark.sql.catalog.<your_catalog_name>`.
+```
+If you want to work with data stored in another catalog, make sure to change `unity` in the Spark configs to `<your_catalog_name>`, e.g. `spark.sql.catalog.<your_catalog_name>`.
+```
 
 === "Spark SQL"
 
-    ```sh
-    bin/spark-sql --name "local-uc-test" \
-        --master "local[*]" \
-        --packages "io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
-        --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
-        --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
-        --conf "spark.sql.catalog.<catalog_name>.token=" \
-        --conf "spark.sql.defaultCatalog=<catalog_name>"
-    ```
+````
+```sh
+bin/spark-sql --name "local-uc-test" \
+    --master "local[*]" \
+    --packages "io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
+    --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
+    --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
+    --conf "spark.sql.catalog.<catalog_name>.token=" \
+    --conf "spark.sql.defaultCatalog=<catalog_name>"
+```
+````
 
 === "PySpark"
 
-    ```sh
-    bin/pyspark --name "local-uc-test" \
-        --master "local[*]" \
-        --packages "io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
-        --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
-        --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
-        --conf "spark.sql.catalog.<catalog_name>.token=" \
-        --conf "spark.sql.defaultCatalog=<catalog_name>"
-    ```
+````
+```sh
+bin/pyspark --name "local-uc-test" \
+    --master "local[*]" \
+    --packages "io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
+    --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
+    --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
+    --conf "spark.sql.catalog.<catalog_name>.token=" \
+    --conf "spark.sql.defaultCatalog=<catalog_name>"
+```
+````
 
 !!! tip "Tip"
-    Initially, this may take a few minutes to run to download the necessary dependencies. Afterwards, you can run some
-    quick commands to see your UC assets within Spark SQL shell.
+Initially, this may take a few minutes to run to download the necessary dependencies. Afterwards, you can run some
+quick commands to see your UC assets within Spark SQL shell.
 
 Notice the following packages (`--packages`) and configurations (`--conf`)
 
@@ -131,63 +143,71 @@ Notice the following packages (`--packages`) and configurations (`--conf`)
 
 ??? note "Three-part and two-part naming conventions"
 
-    ![](https://cdn.prod.website-files.com/66954b344e907bd91f1c8027/66e2bafe16edde34db6395f2_AD_4nXdgqGKSeR2abf7zutk0fiALAs6vejg6EgUDgD_Ud9Xjy7nNkapMePCNH0zJw9Wv0uh6LYn7vlGYrRn4H74G9d0CouV0PWKsUTGkjfBKM5y4Br64B2P5Eapv97bCw0swV4pddsemaWU2zyYYlkKT6Ymxu2YO.png)
+```
+![](https://cdn.prod.website-files.com/66954b344e907bd91f1c8027/66e2bafe16edde34db6395f2_AD_4nXdgqGKSeR2abf7zutk0fiALAs6vejg6EgUDgD_Ud9Xjy7nNkapMePCNH0zJw9Wv0uh6LYn7vlGYrRn4H74G9d0CouV0PWKsUTGkjfBKM5y4Br64B2P5Eapv97bCw0swV4pddsemaWU2zyYYlkKT6Ymxu2YO.png)
 
-    As noted in [Unity Catalog 101](https://www.unitycatalog.io/blogs/unity-catalog-oss), UC has a three-part naming
-    convention of [`catalog`].[`schema`].[`asset`]. In the following examples, you can use the three-part notation such
-    as `SELECT * FROM unity.default.marksheet;` or the two-part notation `SELECT * FROM default.marksheet;` as the
-    `defaultCatalog` is already configured.
+As noted in [Unity Catalog 101](https://www.unitycatalog.io/blogs/unity-catalog-oss), UC has a three-part naming
+convention of [`catalog`].[`schema`].[`asset`]. In the following examples, you can use the three-part notation such
+as `SELECT * FROM unity.default.marksheet;` or the two-part notation `SELECT * FROM default.marksheet;` as the
+`defaultCatalog` is already configured.
+```
 
-### [Optional] Running Spark SQL for Cloud Object Stores
+### \[Optional\] Running Spark SQL for Cloud Object Stores
 
 If you would like to run this against cloud object storage, the following versions of the `bin/spark-sql` shell
 command.
 
 === "AWS S3"
 
-    ```sh
-    bin/spark-sql --name "s3-uc-test" \
-        --master "local[*]" \
-        --packages "org.apache.hadoop:hadoop-aws:3.3.4,io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
-        --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
-        --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.hadoop.fs.s3.impl=org.apache.hadoop.fs.s3a.S3AFileSystem" \
-        --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
-        --conf "spark.sql.catalog.<catalog_name>.token=" \
-        --conf "spark.sql.defaultCatalog=<catalog_name>"
-    ```
+````
+```sh
+bin/spark-sql --name "s3-uc-test" \
+    --master "local[*]" \
+    --packages "org.apache.hadoop:hadoop-aws:3.3.4,io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
+    --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
+    --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.hadoop.fs.s3.impl=org.apache.hadoop.fs.s3a.S3AFileSystem" \
+    --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
+    --conf "spark.sql.catalog.<catalog_name>.token=" \
+    --conf "spark.sql.defaultCatalog=<catalog_name>"
+```
+````
 
 === "Azure ADLSgen2"
 
-    ```sh
-    bin/spark-sql --name "azure-uc-test" \
-        --master "local[*]" \
-        --packages "org.apache.hadoop:hadoop-azure:3.3.6,io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
-        --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
-        --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
-        --conf "spark.sql.catalog.<catalog_name>.token=" \
-        --conf "spark.sql.defaultCatalog=<catalog_name>"
-    ```
+````
+```sh
+bin/spark-sql --name "azure-uc-test" \
+    --master "local[*]" \
+    --packages "org.apache.hadoop:hadoop-azure:3.3.6,io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
+    --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
+    --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
+    --conf "spark.sql.catalog.<catalog_name>.token=" \
+    --conf "spark.sql.defaultCatalog=<catalog_name>"
+```
+````
 
 === "Google Cloud Storage"
 
-    ```sh
-    bin/spark-sql --name "gcs-uc-test" \
-        --master "local[*]" \
-        --jars "https://repo1.maven.org/maven2/com/google/cloud/bigdataoss/gcs-connector/3.0.2/gcs-connector-3.0.2-shaded.jar" \
-        --packages "io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
-        --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
-        --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.hadoop.fs.gs.impl=com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem" \
-        --conf "spark.hadoop.fs.AbstractFileSystem.gs.impl=com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS" \
-        --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
-        --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
-        --conf "spark.sql.catalog.<catalog_name>.token=" \
-        --conf "spark.sql.defaultCatalog=<catalog_name>"
-    ```
+````
+```sh
+bin/spark-sql --name "gcs-uc-test" \
+    --master "local[*]" \
+    --jars "https://repo1.maven.org/maven2/com/google/cloud/bigdataoss/gcs-connector/3.0.2/gcs-connector-3.0.2-shaded.jar" \
+    --packages "io.delta:delta-spark_2.12:3.2.1,io.unitycatalog:unitycatalog-spark_2.12:0.2.0" \
+    --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" \
+    --conf "spark.sql.catalog.spark_catalog=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.hadoop.fs.gs.impl=com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem" \
+    --conf "spark.hadoop.fs.AbstractFileSystem.gs.impl=com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS" \
+    --conf "spark.sql.catalog.<catalog_name>=io.unitycatalog.spark.UCSingleCatalog" \
+    --conf "spark.sql.catalog.<catalog_name>.uri=http://localhost:8080" \
+    --conf "spark.sql.catalog.<catalog_name>.token=" \
+    --conf "spark.sql.defaultCatalog=<catalog_name>"
+```
+````
 
 ## Using Spark SQL to query Unity Catalog schemas and tables
 
@@ -197,23 +217,27 @@ The following `SHOW SCHEMA` shows the `default` schema that is included in the i
 
 === "Spark SQL"
 
-    ```sql
-    -- Show schemas (output = default)
-    SHOW SCHEMAS;
+````
+```sql
+-- Show schemas (output = default)
+SHOW SCHEMAS;
 
-    -- Show tables
-    SHOW TABLES IN default;
-    ```
+-- Show tables
+SHOW TABLES IN default;
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Show schemas (output = default)
-    spark.sql("SHOW SCHEMAS").show()
+````
+```python
+# Show schemas (output = default)
+spark.sql("SHOW SCHEMAS").show()
 
-    # Show tables
-    spark.sql("SHOW TABLES IN default").show()
-    ```
+# Show tables
+spark.sql("SHOW TABLES IN default").show()
+```
+````
 
 with the output similar to:
 
@@ -232,15 +256,19 @@ Let’s query the first five rows of the `marksheet` table.
 
 === "Spark SQL"
 
-    ```sql
-    SELECT * FROM default.marksheet LIMIT 5;
-    ```
+````
+```sql
+SELECT * FROM default.marksheet LIMIT 5;
+```
+````
 
 === "PySpark"
 
-    ```python
-    spark.sql("SELECT * FROM default.marksheet LIMIT 5;").show()
-    ```
+````
+```python
+spark.sql("SELECT * FROM default.marksheet LIMIT 5;").show()
+```
+````
 
 With the output looking similar to the following.
 
@@ -264,109 +292,129 @@ Let’s extend this example by executing various CRUD operations on our UC table
 
 === "Spark SQL"
 
-    ```sql
-    -- Create new schema
-    CREATE SCHEMA demo;
+````
+```sql
+-- Create new schema
+CREATE SCHEMA demo;
 
-    -- Should now show two schemas: default and demo
-    SHOW SCHEMAS;
-    ```
+-- Should now show two schemas: default and demo
+SHOW SCHEMAS;
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Create new schema
-    spark.sql("CREATE SCHEMA demo")
+````
+```python
+# Create new schema
+spark.sql("CREATE SCHEMA demo")
 
-    # Should now show two schemas: default and demo
-    spark.sql("SHOW SCHEMAS").show()
-    ```
+# Should now show two schemas: default and demo
+spark.sql("SHOW SCHEMAS").show()
+```
+````
 
 ### Create New Table
 
 === "Spark SQL"
 
-    ```sql
-    -- Create a new table
-    CREATE TABLE demo.mytable (id INT, desc STRING)
-    USING delta
-    LOCATION '<LOCATION>';
-    -- Example location:
-    -- LOCATION '/tmp/tables/mytable';
-    ```
+````
+```sql
+-- Create a new table
+CREATE TABLE demo.mytable (id INT, desc STRING)
+USING delta
+LOCATION '<LOCATION>';
+-- Example location:
+-- LOCATION '/tmp/tables/mytable';
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Create a new table
-    spark.sql("""
-    CREATE TABLE demo.mytable (id INT, desc STRING)
-    USING delta
-    LOCATION '<LOCATION>'
-    """)
-    # Example location:
-    # LOCATION '/tmp/tables/mytable'
-    ```
+````
+```python
+# Create a new table
+spark.sql("""
+CREATE TABLE demo.mytable (id INT, desc STRING)
+USING delta
+LOCATION '<LOCATION>'
+""")
+# Example location:
+# LOCATION '/tmp/tables/mytable'
+```
+````
 
 ### Insert New Rows into Table
 
 === "Spark SQL"
 
-    ```sql
-    -- Insert new rows
-    INSERT INTO demo.mytable VALUES (1, "test 1");
-    INSERT INTO demo.mytable VALUES (2, "test 2");
-    INSERT INTO demo.mytable VALUES (3, "test 3");
-    INSERT INTO demo.mytable VALUES (4, "test 4");
+````
+```sql
+-- Insert new rows
+INSERT INTO demo.mytable VALUES (1, "test 1");
+INSERT INTO demo.mytable VALUES (2, "test 2");
+INSERT INTO demo.mytable VALUES (3, "test 3");
+INSERT INTO demo.mytable VALUES (4, "test 4");
 
-    -- Read table
-    SELECT * FROM demo.mytable;
-    ```
+-- Read table
+SELECT * FROM demo.mytable;
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Insert new rows
-    spark.sql("INSERT INTO demo.mytable VALUES (1, 'test 1')")
-    spark.sql("INSERT INTO demo.mytable VALUES (2, 'test 2')")
-    spark.sql("INSERT INTO demo.mytable VALUES (3, 'test 3')")
-    spark.sql("INSERT INTO demo.mytable VALUES (4, 'test 4')")
+````
+```python
+# Insert new rows
+spark.sql("INSERT INTO demo.mytable VALUES (1, 'test 1')")
+spark.sql("INSERT INTO demo.mytable VALUES (2, 'test 2')")
+spark.sql("INSERT INTO demo.mytable VALUES (3, 'test 3')")
+spark.sql("INSERT INTO demo.mytable VALUES (4, 'test 4')")
 
-    # Read table
-    spark.sql("SELECT * FROM demo.mytable").show()
-    ```
+# Read table
+spark.sql("SELECT * FROM demo.mytable").show()
+```
+````
 
 ### Update Row in Table
 
 === "Spark SQL"
 
-    ```sql
-    -- Update row in table
-    UPDATE demo.mytable SET id = 5 WHERE id = 4;
-    ```
+````
+```sql
+-- Update row in table
+UPDATE demo.mytable SET id = 5 WHERE id = 4;
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Update row in table
-    spark.sql("UPDATE demo.mytable SET id = 5 WHERE id = 4")
-    ```
+````
+```python
+# Update row in table
+spark.sql("UPDATE demo.mytable SET id = 5 WHERE id = 4")
+```
+````
 
 ### Delete Row from Table
 
 === "Spark SQL"
 
-    ```sql
-    -- Delete rows
-    DELETE FROM demo.mytable WHERE id = 5;
-    ```
+````
+```sql
+-- Delete rows
+DELETE FROM demo.mytable WHERE id = 5;
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Delete rows
-    spark.sql("DELETE FROM demo.mytable WHERE id = 5")
-    ```
+````
+```python
+# Delete rows
+spark.sql("DELETE FROM demo.mytable WHERE id = 5")
+```
+````
 
 ### Merge `mytable` with `srctable`
 
@@ -374,72 +422,80 @@ Create Secondary Table
 
 === "Spark SQL"
 
-    ```sql
-    -- Create secondary table (we will use this as the source for merge)
-    CREATE TABLE demo.srctable (id INT, desc STRING)
-    USING delta
-    LOCATION '<LOCATION>';
-    -- Example location:
-    -- LOCATION '/tmp/tables/srctable';
+````
+```sql
+-- Create secondary table (we will use this as the source for merge)
+CREATE TABLE demo.srctable (id INT, desc STRING)
+USING delta
+LOCATION '<LOCATION>';
+-- Example location:
+-- LOCATION '/tmp/tables/srctable';
 
-    -- Insert new rows
-    INSERT INTO demo.srctable VALUES (3, "updated");
-    INSERT INTO demo.srctable VALUES (4, "inserted");
-    ```
+-- Insert new rows
+INSERT INTO demo.srctable VALUES (3, "updated");
+INSERT INTO demo.srctable VALUES (4, "inserted");
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Create secondary table (we will use this as the source for merge)
-    spark.sql("""
-    CREATE TABLE demo.srctable (id INT, desc STRING)
-    USING delta
-    LOCATION '<LOCATION>'
-    """)
-    # Example location:
-    # LOCATION '/tmp/tables/srctable';
+````
+```python
+# Create secondary table (we will use this as the source for merge)
+spark.sql("""
+CREATE TABLE demo.srctable (id INT, desc STRING)
+USING delta
+LOCATION '<LOCATION>'
+""")
+# Example location:
+# LOCATION '/tmp/tables/srctable';
 
-    # Insert new rows
-    spark.sql("INSERT INTO demo.srctable VALUES (3, 'updated')")
-    spark.sql("INSERT INTO demo.srctable VALUES (4, 'inserted')")
-    ```
+# Insert new rows
+spark.sql("INSERT INTO demo.srctable VALUES (3, 'updated')")
+spark.sql("INSERT INTO demo.srctable VALUES (4, 'inserted')")
+```
+````
 
 Merge Command
 
 === "Spark SQL"
 
-    ```sql
-    -- Merge
-    MERGE INTO demo.mytable as target
-    USING demo.srctable as source
-        ON target.id = source.id
-    WHEN MATCHED THEN
-        UPDATE SET *
-    WHEN NOT MATCHED THEN
-        INSERT *
-    ;
+````
+```sql
+-- Merge
+MERGE INTO demo.mytable as target
+USING demo.srctable as source
+    ON target.id = source.id
+WHEN MATCHED THEN
+    UPDATE SET *
+WHEN NOT MATCHED THEN
+    INSERT *
+;
 
-    -- Check results
-    SELECT * FROM demo.mytable;
-    ```
+-- Check results
+SELECT * FROM demo.mytable;
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Merge
-    spark.sql("""
-    MERGE INTO demo.mytable AS target
-    USING demo.srctable AS source
-        ON target.id = source.id
-    WHEN MATCHED THEN
-        UPDATE SET *
-    WHEN NOT MATCHED THEN
-        INSERT *
-    """)
+````
+```python
+# Merge
+spark.sql("""
+MERGE INTO demo.mytable AS target
+USING demo.srctable AS source
+    ON target.id = source.id
+WHEN MATCHED THEN
+    UPDATE SET *
+WHEN NOT MATCHED THEN
+    INSERT *
+""")
 
-    # Check results
-    spark.sql("SELECT * FROM demo.mytable").show()
-    ```
+# Check results
+spark.sql("SELECT * FROM demo.mytable").show()
+```
+````
 
 ```console title="Merged Results"
 3       updated
@@ -452,27 +508,31 @@ Drop Table
 
 === "Spark SQL"
 
-    ```sql
+````
+```sql
 
-    -- Drop tables
-    DROP TABLE demo.srctable;
+-- Drop tables
+DROP TABLE demo.srctable;
 
-    -- Check results
-    SHOW TABLES IN default;
-    ```
+-- Check results
+SHOW TABLES IN default;
+```
+````
 
 === "PySpark"
 
-    ```python
-    # Drop tables
-    spark.sql("DROP TABLE demo.srctable")
+````
+```python
+# Drop tables
+spark.sql("DROP TABLE demo.srctable")
 
-    # Check results
-    spark.sql("SHOW TABLES IN default").show()
-    ```
+# Check results
+spark.sql("SHOW TABLES IN default").show()
+```
+````
 
 !!! warning
-    Note, this action will only drop the table from UC, it will not remove the data from the file system
+Note, this action will only drop the table from UC, it will not remove the data from the file system
 
 <!--
 ## Benefits of using Unity Catalog for Spark
