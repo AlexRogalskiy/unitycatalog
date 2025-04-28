@@ -6,14 +6,16 @@ The CLI tool allows users to interact with a Unity Catalog server to create and 
 
 !!! note "Specify token for authenticated access"
 
-    If you have set up authentication, you will need to provide an authentication token when executng all of the following commands on this page.
-    For example, in the following section, to run the catalog list command, you would specify:
+````
+If you have set up authentication, you will need to provide an authentication token when executng all of the following commands on this page.
+For example, in the following section, to run the catalog list command, you would specify:
 
-    ```sh
-    bin/uc --auth_token $token catalog list
-    ```
+```sh
+bin/uc --auth_token $token catalog list
+```
 
-    where `$token` is the authentication token provided by an identity provider. For more information on how to support both authentication and authorization, please refer to the [auth](../server/auth.md) documentation.
+where `$token` is the authentication token provided by an identity provider. For more information on how to support both authentication and authorization, please refer to the [auth](../server/auth.md) documentation.
+````
 
 ## Catalog Management CLI Usage
 
@@ -21,7 +23,9 @@ You can use the Unity Catalog CLI to manage catalogs within your system. The `bi
 
 !!! note "Default local Unity Catalog instance"
 
-    All examples on this page will use the local Unity Catalog instance which comes pre-loaded with a default catalog (`unity`), schema (`default`) and some default assets.
+```
+All examples on this page will use the local Unity Catalog instance which comes pre-loaded with a default catalog (`unity`), schema (`default`) and some default assets.
+```
 
 ### List Catalogs
 
@@ -651,7 +655,9 @@ The CLI will prioritize the values provided from the CLI over the configuration 
 
 !!! feedback "Different look for users CLI commands"
 
-    We're trying out a different look for the CLI commands - which do you prefer - the format above this or the format below? Chime in UC GitHub discussion [529](https://github.com/unitycatalog/unitycatalog/discussions/529) and let us know!
+```
+We're trying out a different look for the CLI commands - which do you prefer - the format above this or the format below? Chime in UC GitHub discussion [529](https://github.com/unitycatalog/unitycatalog/discussions/529) and let us know!
+```
 
 ## Manage Users
 
@@ -666,15 +672,19 @@ bin/uc user create [options]
 
 _Required Params:_
 
-    -- name: The name of the entity.
-    -- email : The email address for the user
+```
+-- name: The name of the entity.
+-- email : The email address for the user
+```
 
 _Optional Params:_
 
-    -- server: UC Server to connect to. Default is reference server.
-    -- auth_token: PAT token to authorize uc requests.
-    -- external_id: The identity provider's id for the user
-    -- output: To indicate CLI output format preference. Supported values are json and jsonPretty.
+```
+-- server: UC Server to connect to. Default is reference server.
+-- auth_token: PAT token to authorize uc requests.
+-- external_id: The identity provider's id for the user
+-- output: To indicate CLI output format preference. Supported values are json and jsonPretty.
+```
 
 ### Delete User
 
@@ -684,13 +694,17 @@ bin/uc user delete [options]
 
 _Required Params:_
 
-    --id The unique id of the user
+```
+--id The unique id of the user
+```
 
 _Optional Params:_
 
-    --server UC Server to connect to. Default is reference server.
-    --auth_token PAT token to authorize uc requests.
-    --output To indicate CLI output format preference. Supported values are json and jsonPretty.
+```
+--server UC Server to connect to. Default is reference server.
+--auth_token PAT token to authorize uc requests.
+--output To indicate CLI output format preference. Supported values are json and jsonPretty.
+```
 
 ### Get User
 
@@ -700,13 +714,17 @@ bin/uc user get [options]
 
 _Required Params:_
 
-    --id The unique id of the user
+```
+--id The unique id of the user
+```
 
 _Optional Params:_
 
-    --server UC Server to connect to. Default is reference server.
-    --auth_token PAT token to authorize uc requests.
-    --output To indicate CLI output format preference. Supported values are json and jsonPretty.
+```
+--server UC Server to connect to. Default is reference server.
+--auth_token PAT token to authorize uc requests.
+--output To indicate CLI output format preference. Supported values are json and jsonPretty.
+```
 
 ### List Users
 
@@ -716,16 +734,20 @@ bin/uc user list [options]
 
 _Required Params:_
 
-    None
+```
+None
+```
 
 _Optional Params:_
 
-    --server UC Server to connect to. Default is reference server.
-    --auth_token PAT token to authorize uc requests.
-    --output To indicate CLI output format preference. Supported values are json and jsonPretty.
-    --filter Query by which the results have to be filtered
-    --start_index Specifies the index (starting at 1) of the first result.
-    --count Desired number of results per page
+```
+--server UC Server to connect to. Default is reference server.
+--auth_token PAT token to authorize uc requests.
+--output To indicate CLI output format preference. Supported values are json and jsonPretty.
+--filter Query by which the results have to be filtered
+--start_index Specifies the index (starting at 1) of the first result.
+--count Desired number of results per page
+```
 
 ### Update User
 
@@ -735,16 +757,20 @@ bin/uc user update [options]
 
 _Required Params:_
 
-    --id The unique id of the user
+```
+--id The unique id of the user
+```
 
 _Optional Params:_
 
-    --server UC Server to connect to. Default is reference server.
-    --auth_token PAT token to authorize uc requests.
-    --output To indicate CLI output format preference. Supported values are json and jsonPretty.
-    --name The name of the entity.
-    --external_id The identity provider's id for the user
-    --email The email address for the user
+```
+--server UC Server to connect to. Default is reference server.
+--auth_token PAT token to authorize uc requests.
+--output To indicate CLI output format preference. Supported values are json and jsonPretty.
+--name The name of the entity.
+--external_id The identity provider's id for the user
+--email The email address for the user
+```
 
 ## Metastore Management CLI Usage
 

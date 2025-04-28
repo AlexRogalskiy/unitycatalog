@@ -7,7 +7,7 @@ warehouse performance on open data lakes.
 ## Pre-requisites
 
 - CelerData Cloud BYOC Environment: You can follow this [link](https://cloud.celerdata.com) to deploy one with the
-    30-day free trial.
+  30-day free trial.
 
 ## Deploying Unity Catalog
 

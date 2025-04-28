@@ -2,7 +2,7 @@
 
 Integrate Unity Catalog AI with [LlamaIndex](https://docs.llamaindex.ai/en/stable/) to directly use UC functions as tools in LlamaIndex-based agent applications. This guide covers installation, client setup, and examples to get started.
 
----
+______________________________________________________________________
 
 ## Installation
 
@@ -16,7 +16,7 @@ pip install unitycatalog-llamaindex
 
 - **Python version**: Python 3.10 or higher is required.
 
->Note: Depending on what you're doing with LlamaIndex, you may need to install additional packages from PyPI.
+> Note: Depending on what you're doing with LlamaIndex, you may need to install additional packages from PyPI.
 
 ### Unity Catalog
 
@@ -56,7 +56,7 @@ client = UnitycatalogFunctionClient(api_client=api_client)
 
 Create an instance of the Unity Catalog Functions client
 
-``` python
+```python
 from unitycatalog.ai.core.databricks import DatabricksFunctionClient
 
 client = DatabricksFunctionClient()
@@ -66,7 +66,7 @@ client = DatabricksFunctionClient()
 
 Create a Python function within Unity Catalog
 
-``` python
+```python
 CATALOG = "your_catalog"
 SCHEMA = "your_schema"
 
@@ -99,7 +99,7 @@ client.create_python_function(
 
 Here we create an instance of our UC function as a toolkit, then verify that the tool is behaving properly by executing the function.
 
-``` python
+```python
 from unitycatalog.ai.llama_index.toolkit import UCFunctionToolkit
 
 # Create a UCFunctionToolkit that includes the UC function

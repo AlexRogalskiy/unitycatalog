@@ -65,7 +65,6 @@ ATTACH 'unity' AS unity (dbtype UC_CATALOG);
 
 **Note:** Kuzu attaches to the `default` schema under the given catalog name. Specifying a custom schema to attach to is not currently supported.
 
-
 #### 2. Data type mapping from Unity Catalog to Kuzu
 
 The table below shows the mapping from Unity Catalog's type to Kuzu's type:
@@ -86,9 +85,10 @@ The table below shows the mapping from Unity Catalog's type to Kuzu's type:
 | DECIMAL   | DECIMAL                                 |
 
 If the type is marked as "unsupported", we do not support scanning it in Kuzu.
+
 #### 3. Scan data from table
 
-Finally, we can utilize the `LOAD FROM` statement to scan the `numbers` table. Note that you need to prefix the 
+Finally, we can utilize the `LOAD FROM` statement to scan the `numbers` table. Note that you need to prefix the
 external `numbers` table with the database alias (in our example `unity`). See the `USE` statement which allows you to
 skip this prefixing for a specific default database.
 
@@ -123,7 +123,6 @@ Result:
 ```
 
 Currently, Kuzu only supports scanning from Delta Lake tables registered in the Unity Catalog.
-
 
 #### 4. `USE` statement
 
@@ -160,13 +159,15 @@ When the schemas are the same, we can copy the data from the external Unity Cata
 ```sql
 COPY numbers FROM unity.numbers;
 ```
+
 In some cases, you may want to copy data into a subset of the properties in the Kuzu table. The following example shows how to copy a `unity.score` Delta table into the `score` property of the `numbers(id, score)` node table in Kuzu (setting the IDs values to their default null).
-```sql
+
+````sql
 COPY numbers(score) FROM (LOAD FROM unity.score RETURN as_double);
 `id` and `score`, we can still use `COPY FROM` but with a subquery that transforms the scanned tuples from `unity.numbers` into the schema of Kuzu table.
 ```sql
 COPY numbers FROM (LOAD FROM unity.numbers RETURN score);
-```
+````
 
 #### 6. Query the data in Kuzu
 
@@ -177,6 +178,7 @@ MATCH (n:numbers) RETURN n.*;
 ```
 
 Result:
+
 ```
 ┌───────┬────────────┐
 │ n.id  │ n.score    │

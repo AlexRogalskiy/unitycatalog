@@ -2,7 +2,7 @@
 
 This guide provides detailed information about the Unity Catalog AI clients, including caveats, environment variables, public APIs, and examples to help you effectively utilize the Unity Catalog AI Core Library.
 
----
+______________________________________________________________________
 
 ## Unity Catalog Function Client
 
@@ -130,7 +130,7 @@ uc_client.uc.create_schema(
 ```
 
 > NOTE: Similar to the `create_catalog` API, if a schema exists with the name that you specify, you will receive a warning
-and the existing schema's metadata will be returned.
+> and the existing schema's metadata will be returned.
 
 #### Creating Functions for tool use
 
@@ -166,7 +166,7 @@ my_function = await uc_client.create_python_function_async(
 ```
 
 > Note: within a Python script, you will need to directly call `asyncio.run()` on your async API call
-in order to create an event loop. In a Jupyter Notebook environment, an event loop is provided for you.
+> in order to create an event loop. In a Jupyter Notebook environment, an event loop is provided for you.
 
 Alternatively, you can use the synchronous API:
 
@@ -292,7 +292,7 @@ answer = openai.chat.completions.create(
 )
 ```
 
----
+______________________________________________________________________
 
 ## Databricks Function Client
 
@@ -347,14 +347,14 @@ You can configure the behavior of function execution using the following environ
 In order to perform CRUD operations and to execute UC functions, you will need to instantiate an instance of the UC functions Client. This client interface
 is used not only for direct interface with functions, but also is the mechanism by which a function will be called as a tool by a GenAI application.
 
-``` python
+```python
 from unitycatalog.ai.core.databricks import DatabricksFunctionClient
 
 client = DatabricksFunctionClient()
 
 ```
 
----
+______________________________________________________________________
 
 ## Caveats
 
@@ -362,7 +362,7 @@ client = DatabricksFunctionClient()
 - **Supported Types**: Not all Python types are supported in SQL. Refer to the [Python to SQL Compatibility Matrix](usage.md#python-to-sql-compatibility-matrix) for supported types.
 - **Docstrings**: Use Google-style docstrings to provide metadata for functions. This enhances function discoverability and usability in GenAI applications.
 
----
+______________________________________________________________________
 
 ## Client Public APIs
 
@@ -384,7 +384,7 @@ parsing the contents of your function definition and extracting the relevant inf
 
 #### Example of a Valid Function
 
-``` python
+```python
 def your_function_name(param: str) -> str:
     """
     Converts the input string to uppercase.
@@ -413,7 +413,7 @@ The following function definition will not successfully be created as a UC funct
 - Missing type annotations for arguments and for the return value.
 - Missing docstring.
 
-``` python
+```python
 def invalid_func(a, b):
     return a + b
 
@@ -429,7 +429,7 @@ client.create_python_function(
 
 If you prefer to have full control over your function definition, the `create_function` API in the client allows you to submit your function definition as a [SQL Body statement](https://docs.databricks.com/en/sql/language-manual/sql-ref-syntax-ddl-create-sql-function.html#syntax).
 
-``` python
+```python
 sql_body = """
 CREATE FUNCTION your_catalog.your_schema.your_function_name(param STRING COMMENT 'A string to convert to uppercase.')
 RETURNS STRING
@@ -446,8 +446,8 @@ client.create_function(sql_function_body=sql_body)
 The general guidelines for function creation within UC apply to the SQL Body statement. There are no additional restrictions applied to this API.
 
 > Note: It is highly recommended to provide verbose and accurate `COMMENT` blocks to both the function and the parameters configured. This information is
-provided to LLMs that will be deciding on whether it is appropriate to call the defined tool. Detailed descriptions can reduce the chances of a tool call
-failing due to ambiguous references on how to use the tool.
+> provided to LLMs that will be deciding on whether it is appropriate to call the defined tool. Detailed descriptions can reduce the chances of a tool call
+> failing due to ambiguous references on how to use the tool.
 
 If you create a function without both a `COMMENT` block (the function description) and `COMMENT` entries for each parameter defined for your function,
 a warning will be issued upon creation. It is **highly advised** to correct your function definition and overwrite your function when you see this warning.
@@ -460,7 +460,7 @@ that describes the purpose of and how to use your defined function as a tool.
 
 If you are on Databricks Runtime **17 or above**, you can specify external package dependencies when writing your SQL body, as follows:
 
-``` python
+```python
 sql_body = """
 CREATE FUNCTION my_catalog.my_schema.my_func()
 RETURNS STRING
@@ -478,7 +478,7 @@ $$
 
 You can retrieve the function definition from UC by using the `get_function` client API:
 
-``` python
+```python
 function_info = client.get_function("your_catalog.your_schema.your_function_name")
 ```
 
@@ -557,7 +557,7 @@ The returned value from the `get_function_source` API will be the same as the or
 - `tuple` types will be cast to `list` due to the inability to express a Python `tuple` within Unity Catalog
 - The docstring of the original function will be stripped out. Unity Catalog persists the docstring information in the logged function and it is available in the return of the `get_function` API call if needed.
 - Collection types for open source Unity Catalog will only capture the outer type (i.e., `list` or `dict`) as inner collection type metadata is not preserved
-within the `FunctionInfo` object. In Databricks, full typing is supported for collecitons.
+  within the `FunctionInfo` object. In Databricks, full typing is supported for collecitons.
 
 The result of calling the `get_function_source` API on the `sample_python_func` registered function will be (when printed):
 
@@ -584,7 +584,7 @@ This API is useful for extracting already-registered functions that will be used
 
 You can list all functions that are defined within a given catalog and schema by using the `list_functions` client API:
 
-``` python
+```python
 functions = client.list_functions(catalog="your_catalog", schema="your_schema", max_results=10)
 ```
 
@@ -592,7 +592,7 @@ functions = client.list_functions(catalog="your_catalog", schema="your_schema", 
 
 A function can be deleted through the use of the `delete_function` client API:
 
-``` python
+```python
 client.delete_function("your_catalog.your_schema.your_function_name")
 ```
 
@@ -600,7 +600,7 @@ client.delete_function("your_catalog.your_schema.your_function_name")
 
 Executing a function directly using the client is done through the `execute_function` API:
 
-``` python
+```python
 result = client.execute_function(
     "your_catalog.your_schema.uppercase_function",
     parameters={"param": "hello world"}
@@ -670,7 +670,7 @@ The following imports are not permitted:
 - `shutil`
 
 If you want to customize the allowed package imports, you can override the entire list by submitting a list of standard package names to the
-environment variable `EXECUTOR_DISALLOWED_MODULES` (must be a list[str]).
+environment variable `EXECUTOR_DISALLOWED_MODULES` (must be a list\[str\]).
 
 In addition, callables executed within the sandbox environment do not have access to the built-in file `open` command.
 
@@ -835,13 +835,13 @@ Defining and executing functions with parameter defaults behave similarly to sta
 
 If using defaults in your function signatures, ensure that the descriptions are accurate and declare what the default value is to ensure that Agentic use of your function is accurate.
 
----
+______________________________________________________________________
 
 ## Examples
 
 ### Create and Execute a Function
 
-``` python
+```python
 from unitycatalog.ai.core.databricks import DatabricksFunctionClient
 
 # Initialize the client, connecting to serverless

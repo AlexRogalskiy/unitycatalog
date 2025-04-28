@@ -143,7 +143,7 @@ my_tool.fn(**{"s": "lowercase string"})
 
 ### Utilize our function as a tool within a CrewAI `Crew`
 
-With our interface to our UC function defined as a CrewAI tool collection, we can directly use it within a CrewAI `Crew`. 
+With our interface to our UC function defined as a CrewAI tool collection, we can directly use it within a CrewAI `Crew`.
 
 ```python
 import os
@@ -196,6 +196,7 @@ crew.kickoff()
 ```
 
 Output
+
 ```text
 [2024-10-08 14:29:25][INFO]: Planning the crew execution
 

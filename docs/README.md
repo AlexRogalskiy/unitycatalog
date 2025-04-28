@@ -73,7 +73,7 @@ You can make changes to the documentation by editing the markdown files under th
 
 After making changes to the documentation, be sure to view the changes at `http://127.0.0.1:8000/` to verify that everything looks and functions as expected.
 
----
+______________________________________________________________________
 
 ## Deploying the Documentation
 
@@ -107,7 +107,7 @@ https://bobbiedraper.github.io/unitycatalog
 
 Each time you make updates to the documentation, you can run the `mkdocs gh-deploy` command to push the latest changes to GitHub Pages.
 
----
+______________________________________________________________________
 
 ## Additional Resources
 
@@ -138,24 +138,24 @@ shows an example of a proper formatting:
 
 - The tarball generated in the `target` directory can be unpacked using the following command:
 
-    ```sh
-    tar -xvf unitycatalog-<version>.tar.gz
-    ```
+  ```sh
+  tar -xvf unitycatalog-<version>.tar.gz
+  ```
 
 - Unpacking the tarball will create the following directory structure:
 
-    ```console
-    unitycatalog-<version>
-    ├── bin
-    │   ├── start-uc-server
-    │   └── uc
-    ├── etc
-    │   ├── conf
-    │   ├── data
-    │   ├── db
-    │   └── logs
-    └── jars
-    ```
+  ```console
+  unitycatalog-<version>
+  ├── bin
+  │   ├── start-uc-server
+  │   └── uc
+  ├── etc
+  │   ├── conf
+  │   ├── data
+  │   ├── db
+  │   └── logs
+  └── jars
+  ```
 
 Please note that this ensures that the code snippet is aligned with the text in the bullet points. The final result
 should look similar to the following

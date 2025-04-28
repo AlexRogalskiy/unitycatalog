@@ -52,7 +52,7 @@ client = UnitycatalogFunctionClient(api_client=api_client)
 
 Create an instance of the Unity Catalog Functions client
 
-``` python
+```python
 from unitycatalog.ai.core.databricks import DatabricksFunctionClient
 
 client = DatabricksFunctionClient()

@@ -2,7 +2,7 @@
 
 Integrate Unity Catalog AI with [LiteLLM](https://docs.litellm.ai/) to seamlessly use functions defined in Unity Catalog as tools in your LiteLLM LLM calls. This guide covers installation, client setup for interfacing with Unity Catalog, and examples for using your UC functions as callable tools within LiteLLM.
 
----
+______________________________________________________________________
 
 ## Installation
 
@@ -20,7 +20,7 @@ To interact with Databricks Unity Catalog, install the optional package dependen
 pip install unitycatalog-litellm[databricks]
 ```
 
----
+______________________________________________________________________
 
 ## Get Started
 
@@ -58,7 +58,7 @@ client = DatabricksFunctionClient()
 set_uc_function_client(client)
 ```
 
----
+______________________________________________________________________
 
 ## Tutorial
 
@@ -125,7 +125,7 @@ print(result)
 
 With your UC function defined as a JSON tool collection, you can directly use it within a LiteLLM Completion call. Note that LiteLLM leverages a standardized JSON tool format (compatible with OpenAI’s tool format) across supported LLMs.
 
-> [!NOTE] LiteLLM does not use tool objects internally. Instead, it leverages a JSON format that is passed directly to supported LLMs. For more details on supported
+> \[!NOTE\] LiteLLM does not use tool objects internally. Instead, it leverages a JSON format that is passed directly to supported LLMs. For more details on supported
 > models and the function calling format, please visit the [LiteLLM documentation](https://docs.litellm.ai/).
 
 Below is an example of setting up a LiteLLM completion call that includes your defined UC tools:
@@ -293,6 +293,6 @@ print(results)
 [{'role': 'tool', 'tool_call_id': 'call_QUj1gKkfY8i1sVc4Tlfr3hrM', 'name': 'main.default.sf_weather_lookup_litellm', 'content': 'cloudy and boring'}]
 ```
 
----
+______________________________________________________________________
 
 By following this guide, you can integrate Unity Catalog AI with LiteLLM to deploy and execute UC functions as tools in your LLM applications. Enjoy building with Unity Catalog AI and LiteLLM!
